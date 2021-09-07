@@ -1,3 +1,5 @@
+const log = require('./log.js').log;
+
 const MainPanel = require('./o_MainPanel.js');
 const MouseEvent = require('./o_MouseEvent.js');
 const Graphics = require('./o_Graphics.js');
@@ -45,13 +47,17 @@ function othello(g) {
 			return;
 		}
 		if(v[0] == "start") {
+			this.result0();
 			this.result();
 			return;
 		}
 	};
 	i.white = function() {
+		this.mainPanel.play_x = -1;
+		this.mainPanel.play_y = -1;
 		this.mainPanel.inv = false;
 		this.mainPanel.pass = false;
+		this.mainPanel.stones = [];
 		this.mainPanel.ai.compute();
 		this.result();
 	}
@@ -61,10 +67,11 @@ function othello(g) {
 		let /*MouseEvent*/ e = MouseEvent.MouseEvent();
 		e.x = x * this.mainPanel.GS;
 		e.y = y * this.mainPanel.GS;
+		this.mainPanel.stones = [];
 		this.mainPanel.mouseClicked(e);
 		this.result();
 		if(this.mainPanel.flagForWhite) {
-			setTimeout(this.white, 1000);
+			setTimeout(this.white, 1500);
 		}
 	}
 
@@ -84,10 +91,16 @@ function othello(g) {
 		this.mainPanel.nextTurn();
 		this.mainPanel.inv = false;
 		this.mainPanel.pass = false;
+		this.mainPanel.stones = [];
 		this.mainPanel.ai.compute();
 		this.result();
 	}
 
+	i.result0 = function() {
+		let g = Graphics.Graphics();
+		g.ps = this;
+		this.mainPanel.drawStone(g);
+	}
 	i.result = function() {
 		let g = Graphics.Graphics();
 		g.ps = this;
@@ -98,7 +111,7 @@ function othello(g) {
 		if(this.mainPanel.inv) {
 			this.println("inv");
 		}
-		if(this.mainPanel.flagForWhite) {
+		if(this.mainPanel.play_x >= 0) {
 			this.println("play "
 				+ this.mainPanel.play_x + " "
 				+ this.mainPanel.play_y);

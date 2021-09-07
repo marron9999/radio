@@ -15,7 +15,7 @@ window.onload = function () {
 	conn = new WebSocket(ws + "://" + host + ":" + port);
 	conn.onmessage = onmessage;
 	conn.onopen = function() {
- 		conn.send("monitor");
+ 		conn.send("monitor HTML");
 	};
 	document.getElementById("say").addEventListener("keyup", onkeyup);
 }

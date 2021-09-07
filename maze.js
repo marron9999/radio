@@ -1,3 +1,5 @@
+const log = require('./log.js').log;
+
 function maze() {
 	let i = {
 
@@ -343,6 +345,8 @@ function maze() {
 		else if(z == 3) { vx = 1; vy = 0; }
 		else if(z == 9) { vx = -1; vy = 0; }
 		let ctx = [];
+		let ctr = [];
+		let ctl = [];
 		for (let pr=0; pr<10; pr++ ) {
 			// pr		// 距離
 			// f, l, r	// 前方、左方、右方の状況
@@ -358,9 +362,11 @@ function maze() {
 				ctx.push(this.front(f, pr)); // frontメソッドを実行します
 				break;
 			}
-			ctx.push(this.left(l, pr)); // leftメソッドを実行します
-			ctx.push(this.right(r, pr)); // rightメソッドを実行します
+			ctl.push(this.left(l, pr)); // leftメソッドを実行します
+			ctr.push(this.right(r, pr)); // rightメソッドを実行します
 		}
+		for(let i=ctl.length - 1; i >= 0; i--) ctx.push(ctl[i]);
+		for(let i=ctr.length - 1; i >= 0; i--) ctx.push(ctr[i]);
 		return ctx;
 	},
 	front: function(f, pr) { // 正面に壁がある場合のメソッド
@@ -432,7 +438,7 @@ function maze() {
 	i.open = function() {
 	};
 	i.message = function (wsx, msg) {
-		//console.log(">" + msg);
+		//log.info(">" + msg);
 		if(msg.indexOf("S:") != 0) return false;
 		let val = msg.substr(2).trim().split(" ");
 		if(val[0] == "s") {

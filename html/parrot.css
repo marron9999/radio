@@ -7,7 +7,7 @@
 	    -ms-user-select: none;
 	        user-select: none;*/
 }
-#send {
+.send {
 	font-family: "メイリオ", Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif;
 }
 small {
@@ -24,37 +24,67 @@ small {
 	overflow: hidden;
 	background-color: white;
 }
-#chat {
+
+#names {
 	position: absolute;
 	top: 10px;
-	width: calc(100% - 280px);
-	height: calc(100% - 60px);
+	left: 10px;
+	width: calc(100% - 20px);
+	height: 20px;
+}
+#chats {
+	position: absolute;
+	top: 35px;
+	left: 10px;
+	width: calc(100% - 20px);
+	height: calc(100% - 90px);
+}
+#ons {
+	position: absolute;
+	width: calc(100% - 20px);
+	bottom: 10px;
+	left: 10px;
+}
+
+.name {
+	width: calc(25% - 18px);
+	height: calc(100%);
+	overflow: hidden;
+	margin-left: 10px;
+	display:inline-block;
+}
+
+.chat {
+	width: calc(25% - 20px);
+	height: calc(100%);
 	overflow-y: auto;
 	border: 1px solid gray;
 	margin-left: 10px;
+	display:inline-block;
 }
-#chat div {
+.chat div {
 	word-break: break-all;
 }
-#chat div {
+.chat div {
 	padding-left: 5px;
 	padding-right: 5px;
 	margin-top: 2px;
 }
-#on {
-	position: absolute;
-	left: 10px;
-	bottom: 38px;
-	width: calc(100% - 28px);
+.on {
+	position: relative;
+	margin-left: 10px;
+	width: calc(25% - 18px);
+	height: 30px;
+	display:inline-block;
 }
-#say {
+.say {
 	position: absolute;
-	left: 63px;
+	right: 0px;
 	top: 0px;
-	width: calc(100% - 68px);
+	width: calc(100% - 100px);
 	padding: 5px 5px;
 }
-#send {
+.send {
 	position: absolute;
 	left: 0px;
 	top: 0px;

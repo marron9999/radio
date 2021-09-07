@@ -264,6 +264,11 @@ window.onload = function() {
 };
 
 function message(msg) {
+	if(msg.data.indexOf("title") == 0) {
+		let p = msg.data.indexOf(" ");
+		document.title = msg.data.substr(p+1).trim();
+		return;
+	}
 	if(msg.data.indexOf("S:") != 0) return;
 	let v = msg.data.substr(2).trim().split(" ");
 	if(v[0] == "S") {

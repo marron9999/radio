@@ -1,17 +1,25 @@
 {
   "name": "radio",
   "version": "1.0.0",
-  "description": "![](images/homeroom.png)",
-  "main": "client.js",
+  "description": "![](images/radio.png)",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marron9999/radio.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marron9999/radio/issues"
+  },
+  "homepage": "https://github.com/marron9999/radio#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "ws": "^8.2.0"
+    "ws": "^8.2.1"
   }
 }

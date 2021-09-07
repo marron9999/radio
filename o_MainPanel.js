@@ -82,11 +82,23 @@ const _MainPanel_ = function() {
 	// 情報パネルへの参照
 	/*InfoPanel*/ infoPanel : null,
 
+	stones : [],
+
 	paintComponent : function(/*Graphics*/ g) {
 //		super.paintComponent(g);
 
 		// 盤面を描く
 		this.drawBoard(g);
+
+		for(let i=0; i<this.stones.length; i++) {
+			let x = this.stones[i][0];
+			let y = this.stones[i][1];
+			if(this.board[y][x] == BLACK_STONE)
+				g.ps.println("stone " + x + " " + y + " *");
+			else if(this.board[y][x] == WHITE_STONE)
+				g.ps.println("stone " + x + " " + y + " #");
+		}
+
 		// 盤面の石の数を数える
 		let /*Counter*/ counter = this.countStone();
 		g.ps.println("black " + counter.blackCount);
@@ -97,7 +109,7 @@ const _MainPanel_ = function() {
 		else
 		if (this.gameState == PLAY) {
 			// 石を描く
-			this.drawStone(g);
+			//this.drawStone(g);
 //			// 盤面の石の数を数える
 //			//Counter counter = countStone();
 			// ラベルに表示
@@ -108,19 +120,19 @@ const _MainPanel_ = function() {
 		}
 		else
 		if (this.gameState == YOU_WIN) {
-			this.drawStone(g);
+			//this.drawStone(g);
 //			drawTextCentering(g, "YOU WIN");
 			g.ps.println("you WIN");
 		}
 		else
 		if (this.gameState == YOU_LOSE) {
-			this.drawStone(g);
+			//this.drawStone(g);
 //			drawTextCentering(g, "YOU LOSE");
 			g.ps.println("you LOSE");
 		}
 		else
 		if (this.gameState == DRAW) {
-			this.drawStone(g);
+			//this.drawStone(g);
 //			drawTextCentering(g, "DRAW");
 			g.ps.println("you DRAW");
 		}
@@ -293,6 +305,7 @@ const _MainPanel_ = function() {
 		this.board[y][x] = stone;
 		// コンピュータの思考中でなければ実際に打って再描画する
 		if (!tryAndError) {
+			this.stones.push([x,y]);
 			this.putNumber++;
 //			// カチッ
 //			kachi.play();
@@ -480,9 +493,11 @@ const _MainPanel_ = function() {
 		while (this.board[y][x] != putStone) {
 			// ひっくり返す
 			this.board[y][x] = putStone;
+
 			// ひっくり返した場所を記録しておく
 			undo.pos[undo.count++] = Point.Point(x, y);
 			if (!tryAndError) {
+				this.stones.push([x,y]);
 //				// カチッ
 //				kachi.play();
 //				// 盤面が更新されたので再描画

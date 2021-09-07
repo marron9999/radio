@@ -20,6 +20,7 @@ window.onload = function () {
 	conn.onmessage = onmessage;
 	conn.onopen = function() {
 		document.getElementById("users").innerHTML = "";
+		conn.send("band 0 HTML");
 	};
 	document.getElementById("say").addEventListener("keyup", onkeyup);
 }

@@ -1,6 +1,6 @@
 const rm = 100;
-var rc = 0;
-var conn;
+var rc = [];
+var conn=[];
 var band = 80;
 var group = 0;
 window.onload = function () {
@@ -23,23 +23,31 @@ window.onload = function () {
 	}
 	if(port == null
 	|| port == "") port = "80";
-	conn = new WebSocket(ws + "://" + host + ":" + port);
-	conn.onmessage = onmessage;
-	conn.onopen = function() {
-		conn.send("band " + band);
-		conn.send("group " + group);
-	};
-	document.getElementById("say").addEventListener("keyup", onkeyup);
+	for(let i=0; i<4; i++) {
+		rc[i] = 0;
+		conn[i] = new WebSocket(ws + "://" + host + ":" + port);
+		conn[i].id = i;
+		conn[i].onmessage = function(e) {
+			message(i, e);
+		};
+		conn[i].onopen = function() {
+			conn[i].send("band " + band);
+			conn[i].send("group " + group);
+		};
+	}
+	document.getElementById("say1").addEventListener("keyup", onkeyup);
+	document.getElementById("say2").addEventListener("keyup", onkeyup);
+	document.getElementById("say3").addEventListener("keyup", onkeyup);
+	document.getElementById("say4").addEventListener("keyup", onkeyup);
 }
 
 var select = null;
 var name = "";
-function onmessage(e) {
+function message(i, e) {
 	e = e.data;
 	if(e.indexOf("title") == 0) {
 		let p = e.indexOf(" ");
-		document.title = e.substr(p+1).trim();
-		name = document.title.substr(0, document.title.indexOf(" "));
+		document.getElementById("name" + (i+1)).innerHTML = e.substr(p+1).trim();
 		return;
 	}
 	if(e.indexOf("S:") == 0) {
@@ -50,25 +58,29 @@ function onmessage(e) {
 		e = e.replace(/\t/g, "\\t");
 		e = e.replace(/</g, "&lt;");
 		e = e.replace(/>/g, "&gt;");
-		let c = document.getElementById("chat");
+		let c = document.getElementById("chat" + (i+1));
 		c.innerHTML += "<div class=t>" + e + "</div>";
-		if(rc>rm) {
+		if(rc[i]>rm) {
 			let p = c.innerHTML.indexOf("</div>");
 			c.innerHTML = c.innerHTML.substr(p+6);
 		} else {
-			rc++;
+			rc[i]++;
 		}
 		c.scrollTo(0, 0x7fffffff);
 		return;
 	}
 }
 function onkeyup(e) {
+	let i = event.target.id;
 	if(e.keyCode == 13) {
-		send();
+		i = parseInt(i.charAt(i.length - 1));
+		send(i);
 	}
 }
-function send() {
-	let say = document.getElementById("say");
-	conn.send("S:" + say.value);
-	say.value = "";
+function send(i) {
+	let say = document.getElementById("say" + i);
+	if(say.value != "") {
+		conn[i - 1].send("S:" + say.value);
+		say.value = "";
+	}
 }
