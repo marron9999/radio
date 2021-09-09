@@ -17,7 +17,8 @@ let plugin_band  = {
 	"83": require('./maze.js'),
 	"82": require('./highlow.js'),
 	"81": require('./othello.js'),
-	"80": require('./parrot.js')
+	"80": require('./startrek.js'),
+	"79": require('./parrot.js')
 };
 let plugin_group  = { };
 
@@ -204,7 +205,11 @@ function handle(ws, msg) {
 	message(ws.id, band, group, msg);
 
 	if(online[ws.id] != undefined) {
-		plugin_message(wsx, band, group, msg);
+		try {
+			plugin_message(wsx, band, group, msg);
+		} catch(e) {
+			console.error(e);
+		}
 	}
 }
 

@@ -1,7 +1,7 @@
 const rm = 100;
 var rc = [];
 var conn=[];
-var band = 80;
+var band = 79;
 var group = 0;
 window.onload = function () {
 	let q = location.search;

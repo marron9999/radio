@@ -6,15 +6,40 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Radio</title>
 <style>
-body > div.em1 {
+body > .em1 {
 	padding-left:1em;
+}
+ul {
+	margin-top:0;
 }
 </style>
 </head>
 <body>
+
+<div class=em1><b>無線とは、線を使わない方法・方式で、電波を用いて通信します。</b></div>
+<table class=em1><tr>
+<td><img src=index/radio_amateur_musen.png></td>
+<td><img src=index/denpa1.png style="transform: scaleY(2);"></td>
+<td width=50>&nbsp;</td>
+<td><img src=index/denpa2.png style="transform: scaleY(2);"></td>
+<td><img src=index/radio_amateur_musen_woman.png></td>
+</tr></table>
+
+<div class=em1><b>ここで説明している無線機能は、プログラム（Scratch/JavaScript）同士で会話/通信できるようする機能です。
+プログラム同士の会話/通信は、無線機相当を実現した専用のサーバー・プログラムを介して行ないます。</b></div>
+<table class=em1><tr>
+<td align=center><img src=index/computer_programming_man.png>
+<br><small style="font-size:12px;display:inline-block;">Scratch<br>JavaScript<br>&nbsp;</small></td>
+<td valign=top style="padding-top:40px;"><img src=index/allow.png></td>
+<td align=center valign=top style="padding-top:25px;"><img src=index/computer_cloud_system.png>
+<br><small style="font-size:12px;display:inline-block;">サーバー<br>プログラム</small></td>
+<td valign=top style="padding-top:40px;"><img src=index/allow.png></td>
+<td align=center><img src=index/computer_programming_woman.png>
+<br><small style="font-size:12px;display:inline-block;">Scratch<br>JavaScript</small></td>
+</tr></table>
+
+<div class=em1><b>無線機能を利用したプログラム例（HTML+JavaScript）</b></div>
 <ul>
-<li><a target=client href='client.html'>簡単なテキスト会話クライアント</a></li>
-<li><a target=server href='server.html'>会話機能全体の状況表示</a></li>
 <li><a target=maze href='maze.html?0'>3D迷路：グループ0  - 21 x 21</a></li>
 <li><a target=maze href='maze.html?10'>3D迷路：グループ10  - 41 x 41</a></li>
 <li><a target=maze href='maze.html?20'>3D迷路：グループ20  - 61 x 61</a></li>
@@ -25,10 +50,14 @@ body > div.em1 {
 <li><a target=othello href='othello.html?0'>オセロ (1手読み)</a></li>
 <li><a target=othello href='othello.html?30'>オセロ (4手読み)</a></li>
 <li><a target=othello href='othello.html?60'>オセロ (7手読み)</a></li>
+<li><a target=startrek href='startrek.html?0'>スタートレック</a></li>
 <li><a target=parroot href='parrot.html?0'>オウム返し</a></li>
+<li><a target=client href='client.html'>簡単なテキスト会話</a></li>
+<li><a target=server href='server.html'>会話機能全体の状況表示</a></li>
 </ul>
 
 <div class=em1><b>3D迷路</b></div>
+<div class=em1><img src=docs-maze.png width="25%" height="25%"></div>
 <ul>
 <li>3D迷路は決められた場所まで迷路をひたすら進むだけのゲームです</li>
 <li>残念ながらモンスター等は出現しません</li>
@@ -54,17 +83,25 @@ body > div.em1 {
 </ul>
 
 <div class=em1><b>オセロ</b></div>
+<div class=em1><img src=docs-othello.png></div>
 <ul>
 <li>オセロは相手コマをはさみ、反転しながら自分のコマ数を多くするゲームです</li>
 <li>相手はコンピューターで強さ（読みレベル）として 1 から 7 まで用意されています</li>
 <li>グループ 0 から 9 は強さ 1、グループ 10 から 19 は強さ 2 とグループ値が大きいほど強くなります</li>
 <li>グループ 60 以上は強さ 7 になります</li>
-<li>グループに接続している人は、だれでもコマを打てます</li>
+<li>グループに接続している人は、だれでも操作できます</li>
+</ul>
+
+<div class=em1><b>スタートレック</b></div>
+<div class=em1><img src=docs-startrek.png width="25%" height="25%"></div>
+<ul>
+<li>スタートレックは決められた年数の間に宇宙にいるクリンゴン（敵）を撃墜するレトロゲームです</li>
+<li>グループに接続している人は、だれでも操作できます</li>
 </ul>
 
 <div class=em1><b>オウム返し</b></div>
 <ul>
-<li>オウム返しは聞いた（受信）文字列を繰り返してしゃべる（発信する）プログラムです</li>
+<li>オウム返しは聞いた（受信した）文字列を繰り返してしゃべる（発信する）プログラムです</li>
 </ul>
 
 <div class=em1><b>参考資料</b></div>
@@ -73,7 +110,9 @@ body > div.em1 {
 <li><a target=docs href='docs-maze.html'>3D迷路の会話インタフェース</a></li>
 <li><a target=docs href='docs-highlow.html'>High-Logの会話インタフェース</a></li>
 <li><a target=docs href='docs-othello.html'>オセロの会話インタフェース</a></li>
+<li><a target=docs href='docs-startrek.html'>スタートレックの会話インタフェース</a></li>
 <li><a target=docs href='docs-parrot.html'>オウム返しの会話インタフェース</a></li>
 </ul>
+
 </body>
 </html>
