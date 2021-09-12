@@ -34,13 +34,13 @@ body {
 	border: 1px solid gray;
 	padding-right: 1px;
 	padding-bottom: 1px;
-	line-height: 9px;
+	line-height: 7px;
 }
 #map > span {
 	display: inline-block;
 	overflow:hidden;
-	width: 8px;
-	height: 8px;
+	width: 7px;
+	height: 7px;
 	background: gray;
 	margin-top: 1px;
 	margin-left: 1px;
@@ -51,8 +51,8 @@ body {
 }
 #map > span.z0 {
 	background: white;
-	width: 6px;
-	height: 6px;
+	width: 5px;
+	height: 5px;
 	border: 1px solid gray;
 }
 #map > span.b1,

@@ -4,115 +4,179 @@
 <meta charset="UTF-8">
 <meta http-equiv="x-ua-compatible" content="IE=Edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Radio</title>
+<title>Index</title>
 <style>
+body {
+	padding:0;
+	margin:0;
+	/*background:url(https://cloud.sakura.ad.jp/images/mainvisual.svg) no-repeat top right;*/
+	background:url(./index/mainvisual.svg) no-repeat top right;
+	background-color:rgba(255,255,255,0.2);
+	background-blend-mode:lighten;
+}
 body > .em1 {
 	padding-left:1em;
 }
 ul {
 	margin-top:0;
 }
+#head {
+	background: linear-gradient(#00008020,#00008008,#00008004, #00008008, #00008020);
+	margin-bottom: 10px;
+	height:70px;
+	width:calc(100%);
+	position:fixed;
+}
+#foot {
+	bottom:0;
+	margin-top: 10px;
+	height:60px;
+	width:calc(100%);
+	position:fixed;
+}
+#td0 {
+	position:absolute;
+	white-space:nowrap;
+	top: 10px;
+	left: 15px;
+	display:inline-block;
+}
+.shadow {
+	filter:
+	drop-shadow(2px 2px 0 white)
+	drop-shadow(-2px -2px 0 white)
+	drop-shadow(-2px 2px 0 white)
+	drop-shadow(2px -2px 0 white)
+	;
+}
+#tx0 {
+	vertical-align:top;
+	white-space:nowrap;
+	padding-top:5px;
+	padding-left:5px;
+	display:inline-block;
+	font-family:Anton,sans-serif;
+	font-weight:bold;
+	font-size:22px;
+	line-height:22px;
+}
+
+#td1 {
+	position:absolute;
+	white-space:nowrap;
+	bottom: 17px;
+	left: 10px;
+	display:inline-block;
+}
+
+#td2 {
+	position:absolute;
+	white-space:nowrap;
+	bottom: 10px;
+	left: 120px;
+	display:inline-block;
+}
+#tx2 {
+	vertical-align:top;
+	padding-top:12px;
+	white-space:nowrap;
+	display:inline-block;
+	font-family:system-ui;
+	font-size:12px;
+	line-height:12px;
+}
+
+#menu {
+	position:fixed;
+	top: 80px;
+	width:calc(100%);
+	height:auto;
+}
+#menu > div.item {
+	padding: 20px 10px;
+	margin-left:10px;
+	display:block;
+	float:left;
+	width:180px;
+	height:120px;
+	margin-left:20px;
+	margin-top:10px;
+	margin-bottom:10px;
+	background: linear-gradient(#00008020,#00008008,#00008004, #00008008, #00008020);
+	text-align:center;
+	cursor:pointer;
+}
+#menu > div.item > b {
+	display:inline-block;
+	font-size: 20px;
+	line-height: 20px;
+	margin-top:10px;
+}
 </style>
+<script>
+function select(e) {
+	const list = {
+		scratch:"scratch/",
+		radio:"radio.html",
+		othello:"othello.html",
+		maze:"maze.html",
+		startrek:"startrek.html",
+	};
+	let t = e.innerHTML.toLowerCase();
+	for(let id in list) {
+		if(t.indexOf(id) >= 0){
+			window.open(list[id], id);
+			return;
+		}
+	}
+}
+</script>
 </head>
 <body>
 
-<div class=em1><b>無線とは、線を使わない方法・方式で、電波を用いて通信します。</b></div>
-<table class=em1><tr>
-<td><img src=index/radio_amateur_musen.png></td>
-<td><img src=index/denpa1.png style="transform: scaleY(2);"></td>
-<td width=50>&nbsp;</td>
-<td><img src=index/denpa2.png style="transform: scaleY(2);"></td>
-<td><img src=index/radio_amateur_musen_woman.png></td>
-</tr></table>
+<div id=foot>
+<div id=td1><img src=index/coderdojo.2.png height=28></div>
+<div id=td2><img src=index/2-1-small-rgb-whiteback.svg height=40>
+<span id=tx2>このサーバーは、さくらインターネット様から<br>
+ご提供いただいている「さくらのクラウド」で動作しています</span></div>
+</div>
 
-<div class=em1><b>ここで説明している無線機能は、プログラム（Scratch/JavaScript）同士で会話/通信できるようする機能です。
-プログラム同士の会話/通信は、無線機相当を実現した専用のサーバー・プログラムを介して行ないます。</b></div>
-<table class=em1><tr>
-<td align=center><img src=index/computer_programming_man.png>
-<br><small style="font-size:12px;display:inline-block;">Scratch<br>JavaScript<br>&nbsp;</small></td>
-<td valign=top style="padding-top:40px;"><img src=index/allow.png></td>
-<td align=center valign=top style="padding-top:25px;"><img src=index/computer_cloud_system.png>
-<br><small style="font-size:12px;display:inline-block;">サーバー<br>プログラム</small></td>
-<td valign=top style="padding-top:40px;"><img src=index/allow.png></td>
-<td align=center><img src=index/computer_programming_woman.png>
-<br><small style="font-size:12px;display:inline-block;">Scratch<br>JavaScript</small></td>
-</tr></table>
+<div class=shadow id=head>
+<div id=td0><img src=index/logo_s.png>
+<span id=tx0>CoderDojo<br>Mishima/Numazu</span></div>
+</div>
 
-<div class=em1><b>無線機能を利用したプログラム例（HTML+JavaScript）</b></div>
-<ul>
-<li><a target=maze href='maze.html?0'>3D迷路：グループ0  - 21 x 21</a></li>
-<li><a target=maze href='maze.html?10'>3D迷路：グループ10  - 41 x 41</a></li>
-<li><a target=maze href='maze.html?20'>3D迷路：グループ20  - 61 x 61</a></li>
-<li><a target=maze href='maze.html?30'>3D迷路：グループ30  - 81 x 81</a></li>
-<li><a target=maze href='maze.html?40'>3D迷路：グループ40  - 101 x 101</a></li>
-<li><a target=highlow href='highlow.html'>High-Low (自動)</a></li>
-<li><a target=highlow href='highlow11.html'>High-Low (練習)</a></li>
-<li><a target=othello href='othello.html?0'>オセロ (1手読み)</a></li>
-<li><a target=othello href='othello.html?30'>オセロ (4手読み)</a></li>
-<li><a target=othello href='othello.html?60'>オセロ (7手読み)</a></li>
-<li><a target=startrek href='startrek.html?0'>スタートレック</a></li>
-<li><a target=parroot href='parrot.html?0'>オウム返し</a></li>
-<li><a target=client href='client.html'>簡単なテキスト会話</a></li>
-<li><a target=server href='server.html'>会話機能全体の状況表示</a></li>
-</ul>
+<div id=menu>
 
-<div class=em1><b>3D迷路</b></div>
-<div class=em1><img src=docs-maze.png width="25%" height="25%"></div>
-<ul>
-<li>3D迷路は決められた場所まで迷路をひたすら進むだけのゲームです</li>
-<li>残念ながらモンスター等は出現しません</li>
-<li>前方10ブロックまで、見える範囲を３次元で表示します</li>
-<li>通路も壁も1ブロックとして表示されます</li>
-<li>ゴールは赤色の位置です</li>
-<li>現在の位置は緑色の位置です</li>
-<li>進む方向は▲で表示されます</li>
-<li>黄色の壁は扉です。通過すると通路に変わり、その先が見えます。</li>
-<li>水色の壁は、その手前に通路があることを表します</li>
-<li>操作キー：↑（前ヘ）↓（戻る）←（左を向く）→（右を向く）</li>
-<li>これまで見えた範囲を表示する地図も表示されます<br>
-地図には他者が見つけた通路も同時に表示されます</li>
-<li>help とキー入力すると地図上の見えてない個所を表示できます</li>
-</ul>
+<div class="shadow item" onclick="select(this)">
+<img src=index/scratch.svg style="width:160px;height:auto;"><br>
+<b>Scratch<br>＋無線機能</b></div> 
 
-<div class=em1><b>High-Low</b></div>
-<ul>
-<li>High-Logは決められた時間・回数以内に正解の値（ 0 から 9 のいずれか）を当てるゲームです</li>
-<li>グループ 1 から 10 までのいずれか 6つにゲームが用意されています</li>
-<li>用意されたゲームを探して正解を求めましょう</li>
-<li>練習向けにグループ11にゲームが常設されています</li>
-</ul>
+<div class="shadow item" onclick="select(this)">
+<span style="display:inline-block; padding:8px 0;">
+<img src=radio/denpa2a.png style="width:auto;height:auto;">
+<img src=radio/computer_cloud_system.png style="width:auto;height:auto;">
+<img src=radio/denpa1a.png style="width:auto;height:auto;"></span><br>
+<b>無線機能とは</b></div> 
 
-<div class=em1><b>オセロ</b></div>
-<div class=em1><img src=docs-othello.png></div>
-<ul>
-<li>オセロは相手コマをはさみ、反転しながら自分のコマ数を多くするゲームです</li>
-<li>相手はコンピューターで強さ（読みレベル）として 1 から 7 まで用意されています</li>
-<li>グループ 0 から 9 は強さ 1、グループ 10 から 19 は強さ 2 とグループ値が大きいほど強くなります</li>
-<li>グループ 60 以上は強さ 7 になります</li>
-<li>グループに接続している人は、だれでも操作できます</li>
-</ul>
+<div style="clear:both;width:0;height:0;"></div>
+<div style="padding:0 20px;margin-top:30px;">
+<div style="margin-top:20px;margin-bottom:10px;border-bottom:1px solid #ccc">無線機能を利用したプログラム例（HTML+JavaScript）</div>
+</div>
 
-<div class=em1><b>スタートレック</b></div>
-<div class=em1><img src=docs-startrek.png width="25%" height="25%"></div>
-<ul>
-<li>スタートレックは決められた年数の間に宇宙にいるクリンゴン（敵）を撃墜するレトロゲームです</li>
-<li>グループに接続している人は、だれでも操作できます</li>
-</ul>
+<div class="shadow item" onclick="select(this)">
+<img src=othello/docs-othello.png height=80><br>
+<b>オセロ</b></div> 
 
-<div class=em1><b>オウム返し</b></div>
-<ul>
-<li>オウム返しは聞いた（受信した）文字列を繰り返してしゃべる（発信する）プログラムです</li>
-</ul>
+<div class="shadow item" onclick="select(this)">
+<img src=maze/docs-maze.png height=80><br>
+<b>3D迷路</b></div> 
 
-<div class=em1><b>参考資料</b></div>
-<ul>
-<li><a target=docs href='docs-radio.html'>Scratch拡張機能：無線の会話インタフェース</a></li>
-<li><a target=docs href='docs-maze.html'>3D迷路の会話インタフェース</a></li>
-<li><a target=docs href='docs-highlow.html'>High-Logの会話インタフェース</a></li>
-<li><a target=docs href='docs-othello.html'>オセロの会話インタフェース</a></li>
-<li><a target=docs href='docs-startrek.html'>スタートレックの会話インタフェース</a></li>
-<li><a target=docs href='docs-parrot.html'>オウム返しの会話インタフェース</a></li>
-</ul>
+<div class="shadow item" onclick="select(this)">
+<img src=startrek/docs-startrek.png height=80><br>
+<b>スタートレック</b></div> 
+
+</div>
 
 </body>
 </html>
