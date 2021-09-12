@@ -14,11 +14,11 @@ let online = {};
 let monitor = {};
 
 let plugin_band  = {
-	"83": require('./maze.js'),
-	"82": require('./highlow.js'),
-	"81": require('./othello.js'),
-	"80": require('./startrek.js'),
-	"79": require('./parrot.js')
+	"83": require('./maze/maze.js'),
+	"82": require('./highlow/highlow.js'),
+	"81": require('./othello/othello.js'),
+	"80": require('./startrek/startrek.js'),
+	"79": require('./parrot/parrot.js')
 };
 let plugin_group  = { };
 

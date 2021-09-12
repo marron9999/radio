@@ -1609,7 +1609,7 @@ const _StarTrek_ = function() {
 //	*******************************************/
 //		public void disp()	{
 //			if ( runFlag == 1 ){
-//				msgDialog.disp( "航海に出てしまいませた", "   もう変更はできません");
+//				msgDialog.disp( "航海に出てしまいました", "もう変更はできません");
 //				return;
 //			}
 //
@@ -1684,9 +1684,11 @@ const _StarTrek_ = function() {
 			}
 			else if ( this.curEnergy <= 0 ){
 				this.Game_msg1 = "エネルギーが無くなった !!, 負け";
+				this.msgDialog_disp(this.Game_msg1, "");
 			}
 			else if ( this.leftYear <= 0 ){
 				this.Game_msg1 = "寿命がつきた !!, 負け";
+				this.msgDialog_disp(this.Game_msg1, "");
 			}
 
 //			msg2 = "続けますか ？";
@@ -1714,7 +1716,8 @@ const _StarTrek_ = function() {
 		Game_isGameWin : function(){
 			if (this.allKlingon <= 0 ){
 				msg1 = "クリンゴンが全て消滅 !!,  勝利";
-				msg2 = "続けますか ？";
+				this.msgDialog_disp(msg1, "");
+//				msg2 = "続けますか ？";
 
 //				okngStatus = 0;
 //				okngDialog.disp( msg1,msg2);
