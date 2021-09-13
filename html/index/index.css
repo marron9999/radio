@@ -1,0 +1,123 @@
+body {
+	padding:0;
+	margin:0;
+	/*background:url(https://cloud.sakura.ad.jp/images/mainvisual.svg) no-repeat top right;*/
+	background:url(mainvisual.svg) no-repeat top right;
+	background-color:rgba(255,255,255,0.7);
+	background-blend-mode:lighten;
+}
+body > .em1 {
+	padding-left:1em;
+}
+ul {
+	margin-top:0;
+}
+#head {
+	background: linear-gradient(#00008020,#00008008,#00008004, #00008008, #00008020);
+	margin-bottom: 10px;
+	height:70px;
+	width:calc(100%);
+	position:fixed;
+}
+#foot {
+	bottom:0;
+	margin-top: 10px;
+	height:60px;
+	width:calc(100%);
+	position:fixed;
+}
+#td0 {
+	position:absolute;
+	white-space:nowrap;
+	top: 10px;
+	left: 15px;
+	display:inline-block;
+}
+.shadow {
+	filter:
+	drop-shadow(2px 2px 0 white)
+	drop-shadow(-2px -2px 0 white)
+	drop-shadow(-2px 2px 0 white)
+	drop-shadow(2px -2px 0 white)
+	;
+}
+#tx0 {
+	vertical-align:top;
+	white-space:nowrap;
+	padding-top:5px;
+	padding-left:5px;
+	display:inline-block;
+	font-family:Anton,sans-serif;
+	font-weight:bold;
+	font-size:22px;
+	line-height:22px;
+}
+
+#td1 {
+	position:absolute;
+	white-space:nowrap;
+	bottom: 17px;
+	left: 10px;
+	display:inline-block;
+}
+#tx1, #tx1a {
+	vertical-align:top;
+	white-space:nowrap;
+	padding-top:2px;
+	display:inline-block;
+	font-family:Anton,sans-serif;
+}
+#tx1 {
+	margin-left:5px;
+	font-size:14px;
+	line-height:14px;
+}
+#tx1a {
+	font-size:9px;
+	line-height:10px;
+}
+
+#td2 {
+	position:absolute;
+	white-space:nowrap;
+	bottom: 10px;
+	left: 240px;
+	display:inline-block;
+}
+#tx2 {
+	vertical-align:top;
+	padding-top:8px;
+	white-space:nowrap;
+	display:inline-block;
+	font-family:system-ui;
+	font-size:12px;
+	line-height:13px;
+	margin-left:-5px;
+}
+
+#menu {
+	position:fixed;
+	top: 80px;
+	width:calc(100%);
+	height:auto;
+}
+#menu > div.item {
+	padding: 20px 10px;
+	margin-left:10px;
+	display:block;
+	float:left;
+	width:180px;
+	height:120px;
+	margin-left:20px;
+	margin-top:10px;
+	margin-bottom:10px;
+	background: linear-gradient(#00008020,#00008008,#00008004, #00008008, #00008020);
+	text-align:center;
+	cursor:pointer;
+}
+#menu > div.item > b {
+	display:inline-block;
+	font-size: 20px;
+	line-height: 20px;
+	margin-top:10px;
+}

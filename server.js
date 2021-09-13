@@ -45,7 +45,8 @@ function stop() {
 function start() {
 	log.info("Start express+wss:" + port);
 	app = express();
-	app.use(express.static(__dirname + '/html'));
+	app.use(express.static('html'));
+	app.use("/scratch", express.static('../scratch'));
 	server = http.createServer(app);
 	wss = new WebSocketServer({server:server});
 	wss.on('connection', function (ws) {
