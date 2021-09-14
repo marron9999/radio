@@ -4,19 +4,8 @@ var conn;
 var band = 0;
 var group = 0;
 window.onload = function () {
-	var ws = "ws";
-	var host = window.location.hostname;
-	var port = null;
-	if(host == null
-	|| host == "") {
-		host = "localhost";
-		port = "8888";
-	} else {
-		port = window.location.port;
-	}
-	if(port == null
-	|| port == "") port = "80";
-	conn = new WebSocket(ws + "://" + host + ":" + port);
+	let url = wspath();
+	conn = new WebSocket(url);
 	conn.onmessage = onmessage;
 	conn.onopen = function() {
 		document.getElementById("users").innerHTML = "";

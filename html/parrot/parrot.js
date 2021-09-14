@@ -4,28 +4,10 @@ var conn=[];
 var band = 79;
 var group = 0;
 window.onload = function () {
-	let q = location.search;
-	if(q == null) q = "";
-	else q = q.substr(1);
-	q = q.split("&");
-	if(q.length > 0 && q[0] != "") {
-		group = parseInt(q[0]);
-	}
-	var ws = "ws";
-	var host = window.location.hostname;
-	var port = null;
-	if(host == null
-	|| host == "") {
-		host = "localhost";
-		port = "8888";
-	} else {
-		port = window.location.port;
-	}
-	if(port == null
-	|| port == "") port = "80";
+	let url = wspath();
 	for(let i=0; i<4; i++) {
 		rc[i] = 0;
-		conn[i] = new WebSocket(ws + "://" + host + ":" + port);
+		conn[i] = new WebSocket(url);
 		conn[i].id = i;
 		conn[i].onmessage = function(e) {
 			message(i, e);

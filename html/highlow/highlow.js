@@ -2,28 +2,18 @@ const rm = 100;
 var rc = 0;
 var conn;
 var band = 82;
+var group = 0;
 let current = 0;
 let max = 10;
 let stat = null;
 
 window.onload = function () {
-	var ws = "ws";
-	var host = window.location.hostname;
-	var port = null;
-	if(host == null
-	|| host == "") {
-		host = "localhost";
-		port = "8888";
-	} else {
-		port = window.location.port;
-	}
-	if(port == null
-	|| port == "") port = "80";
-	conn = new WebSocket(ws + "://" + host + ":" + port);
+	let url = wspath();
+	conn = new WebSocket(url);
 	conn.onmessage = onmessage;
 	conn.onopen = function() {
 		send("band " + band);
-		group();
+		sendGroup();
 	};
 }
 

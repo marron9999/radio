@@ -221,29 +221,11 @@ var band = 83;
 var group = 0;
 
 window.onload = function() {
-	let q = location.search;
-	if(q == null) q = "";
-	else q = q.substr(1);
-	q = q.split("&");
-	if(q.length > 0 && q[0] != "") {
-		group = parseInt(q[0]);
-	}
-	ws = "ws";
-	var host = window.location.hostname;
-	var port = null;
-	if(host == null
-	|| host == "") {
-		host = "localhost";
-		port = "8888";
-	} else {
-		port = window.location.port;
-	}
-	if(port == null
-	|| port == "") port = "80";
+	let url = wspath();
 	canvas = document.getElementById('maze');
 	ctx = canvas.getContext('2d');
 	clear();
-	ws = new WebSocket(ws + "://" + host + ":" + port);
+	ws = new WebSocket(url);
 	ws.onopen = function() {
 		//ws.send("S:" + "c " + size[0] + " " + size[1]); 
 		ws.send("band " + band); 

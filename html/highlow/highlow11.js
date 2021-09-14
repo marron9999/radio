@@ -1,4 +1,4 @@
-function group() {
+function sendGroup() {
 	send("group 11");
 }
 
