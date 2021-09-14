@@ -11,7 +11,7 @@ function wspath() {
 	var ws = "ws";
 	var host = window.location.hostname;
 	var port = null;
-	if(window.location.protcol == "https:") {
+	if(window.location.protocol == "https:") {
 		https = true;
 		ws = "wss";
 	}
