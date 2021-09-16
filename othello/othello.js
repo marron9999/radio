@@ -1,4 +1,5 @@
-const log = require('../log.js').log;
+//const log = require('../log.js').log;
+//log.id("othello");
 
 const MainPanel = require('./o_MainPanel.js');
 const MouseEvent = require('./o_MouseEvent.js');

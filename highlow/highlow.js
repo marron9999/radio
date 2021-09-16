@@ -12,11 +12,11 @@ function highlow() {
 	i.start = function() {
 		this.val = parseInt(Math.random() * 10);
 		this.test = 0;
-		log.info("HIGHLOW: Group " + this.group + ", Result: " + this.val);
+		log.info("highlow", "Group " + this.group + ", Result: " + this.val);
 	};
 	i.move = function() {
 		if(this.val >= 0) {
-			log.info("HIGHLOW: Group " + i + ", Timeout (10 sec)");
+			log.info("highlow", "Group " + i + ", Timeout (10 sec)");
 		}
 		this.timer = null;
 		this.game = "";
@@ -56,7 +56,7 @@ function highlow() {
 		}
 		if(val[0] == "game") {
 			if(this.game == "") {
-				log.info("HIGHLOW>" + msg);
+				log.info("highlow", ">" + msg);
 				this.game = val[1];
 				val = "V:" + val[0] + "=" + val[1];
 				this.send(wsx, val);
@@ -112,7 +112,7 @@ function rand() {
 	while(true) {
 		let i = parseInt(Math.random() * 10) + 1;
 		if(inst[i].test < 0) {
-			log.info("HIGHLOW: Group " + i + ",Wait 5 sec");
+			log.info("highlow", "Group " + i + ",Wait 5 sec");
 			inst[i].test = 0;
 			setTimeout(inst[i].start, 5 * 1000);
 			return;
@@ -120,7 +120,7 @@ function rand() {
 	}
 }
 function rand11() {
-	log.info("HIGHLOW: Group 11, Wait 5 sec");
+	log.info("highlow", "Group 11, Wait 5 sec");
 	setTimeout(inst[11].start, 5 * 1000);
 }
 

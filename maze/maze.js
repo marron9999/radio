@@ -1,4 +1,5 @@
-const log = require('../log.js').log;
+//const log = require('../log.js').log;
+//log.id("maze");
 
 function maze() {
 	let i = {

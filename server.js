@@ -2,6 +2,7 @@ const http = require('http')
 const express = require('express')
 const WebSocket = require('ws');
 const WebSocketServer = WebSocket.Server;
+const bodyParser = require('body-parser');
 
 const log = require('./log.js').log;
 //log.set(2);
@@ -43,15 +44,25 @@ function stop() {
 }
 
 function start() {
-	log.info("Start express+wss:" + port);
+	log.info("", "Start express+wss:" + port);
+
 	app = express();
 	app.use(express.static('html'));
 	app.use("/scratch", express.static('../scratch'));
+	app.use(bodyParser.text({type:'text/html'}));
+	app.use(express.static('html'));
+
 	server = http.createServer(app);
+	let posts = log.posts();
+	for(let name in posts) {
+		app.post("/" + name, posts[name]);
+	}
+
 	wss = new WebSocketServer({server:server});
 	wss.on('connection', function (ws) {
 		ws.id = wsid(ws._socket);
-		log.info(ws.id + " connect");
+		log.connect(ws.id + " connect");
+		log.info("", ws.id + " connect");
 		online[ws.id] = {ws:ws, band:0, group:0, user:null};
 		title(online[ws.id]);
 		monitors();
@@ -60,14 +71,14 @@ function start() {
 			if(online[ws.id] != undefined) {
 				let band = online[ws.id].band;
 				let group = online[ws.id].group;
-				log.info(ws.id + " close");
+				log.info("", ws.id + " close");
 				delete online[ws.id];
 				users(band, group);
 				monitors();
 				plugin_close(band, group);
 			}
 			if(monitor[ws.id] != undefined) {
-				log.info(ws.id + " close");
+				log.info("", ws.id + " close");
 				delete monitor[ws.id];
 				monitors();
 			}
@@ -76,12 +87,13 @@ function start() {
 			handle(this, "" + msg);
 		});
 	});
+
 	server.listen(port);
 }
 
 function handle(ws, msg) {
 	msg = "" + msg;
-	//log.info(ws.id + " " + msg);
+	//log.info("", ws.id + " " + msg);
 	let band = -1;
 	let group = -1;
 	if(online[ws.id] != undefined) {
@@ -117,7 +129,7 @@ function handle(ws, msg) {
 	}
 
 	if(msg == MSG_STOP) {
-		log.info("Close express+wss:" + port);
+		log.info("", "Close express+wss:" + port);
 		wss.close();
 		server.close();
 		return;
@@ -219,7 +231,7 @@ function plugin_message(ws, band, group, msg) {
 	let gs = plugin_group[""+band];
 	if(gs == undefined) return false;
 	if(gs[""+group] == undefined) return false;
-	//log.info(band + " gs[" + group + "].message()");
+	//log.info("", band + " gs[" + group + "].message()");
 	gs[""+group].message(ws, msg);
 }
 
@@ -230,9 +242,9 @@ function plugin_close(band, group) {
 		let gs = plugin_group[""+band];
 		if(gs == undefined) return false;
 		if(gs[""+group] == undefined) return false;
-		log.info(band + " gs[" + group + "].close()");
+		log.info("", band + " gs[" + group + "].close()");
 		gs[""+group].close();
-		log.info(band + " delete gs[" + group + "]");
+		log.info("", band + " delete gs[" + group + "]");
 		delete gs["" + group];
 	}
 	return true;
@@ -248,7 +260,7 @@ function plugin_open(band, group) {
 	if(gs[""+group] == undefined) {
 		gs[""+group] = plugin_band[""+band].plugin(group);
 	}
-	log.info(band + " gs[" + group + "].open()");
+	log.info("", band + " gs[" + group + "].open()");
 	gs[""+group].open();
 	return true;
 }
@@ -369,7 +381,7 @@ function message(ws_id, band, group, msg) {
 	}
 	if(x.length > 0) {
 		for(let i = 0; i < x.length; i++) {
-			log.error(x[i].id + " catch:" + x[i].error);
+			log.error("", x[i].id + " catch:" + x[i].error);
 			delete online[x[i].id];
 		}
 		monitors();
@@ -385,7 +397,7 @@ function message(ws_id, band, group, msg) {
 			monitor[id].band = -1;
 			monitor[id].group = -1;
 			x = 1;
-			log.error(id + " catch:" + e);
+			log.error("", id + " catch:" + e);
 		}
 	}
 	if(x > 0) {
