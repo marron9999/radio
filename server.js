@@ -59,8 +59,8 @@ function start() {
 	}
 
 	wss = new WebSocketServer({server:server});
-	wss.on('connection', function (ws) {
-		ws.id = wsid(ws._socket);
+	wss.on('connection', function (ws, req) {
+		ws.id = wsid(ws._socket, req);
 		log.connect(ws.id + " connect");
 		log.info("", ws.id + " connect");
 		online[ws.id] = {ws:ws, band:0, group:0, user:null};
@@ -405,8 +405,15 @@ function message(ws_id, band, group, msg) {
 	}
 }
 
-function wsid(socket) {
-	let a = socket.remoteAddress;
+function wsid(socket, req) {
+	let a = null;
+	if(req != undefined && req != null) {
+		a = req.headers['x-forwarded-for'];
+		if(a == null)
+			a = req.connection.remoteAddress;
+	}
+	if(a == null)
+		a = socket.remoteAddress;
 	a = a.substring(a.lastIndexOf(":")+1);
 	a = a + ":" + socket.remotePort;
 	return a;
