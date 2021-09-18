@@ -47,8 +47,9 @@ function start() {
 	log.info("", "Start express+wss:" + port);
 
 	app = express();
-	app.use(express.static('html'));
 	app.use("/scratch", express.static('../scratch'));
+	app.use(express.static('html'));
+	app.use(express.static('../html'));
 	app.use(bodyParser.text({type:'text/html'}));
 	app.use(express.static('html'));
 

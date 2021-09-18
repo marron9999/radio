@@ -488,6 +488,7 @@ function maze() {
 				this.map1[y][x] = 0;
 				this.map2[y][x] = 0;
 			}
+			this.send2(wsx, "S:T " + x + " " + y + " 0 0");
 			return true;
 		}
 		if(val[0] == "v") {
@@ -503,7 +504,7 @@ function maze() {
 			this.send2(wsx, "S:" + "P B");
 			for(let i = 0; i < wsx[0].length; i++) {
 				if(wsx[0][i].maze != undefined) {
-					val = "S:" + "p "
+					val = "S:" + "P "
 						+ wsx[0][i].maze[0] + " "
 						+ wsx[0][i].maze[1] + " "
 						+ wsx[0][i].maze[2];
