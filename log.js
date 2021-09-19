@@ -65,7 +65,7 @@ const log = {
 				let p = body.indexOf("\t");
 				let id = body.substr(0, p);
 				body = body.substr(p + 1);
-				store(id, "log", body);
+				store(id, "txt", body);
 				body = encodeURIComponent(load(id, "txt"));
 				res.send(body);
 			},
