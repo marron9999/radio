@@ -57,6 +57,7 @@ function start() {
 	let posts = log.posts();
 	for(let name in posts) {
 		app.post("/" + name, posts[name]);
+		app.post("/app/" + name, posts[name]);
 	}
 
 	wss = new WebSocketServer({server:server});

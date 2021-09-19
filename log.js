@@ -1,4 +1,8 @@
 const fs = require('fs');
+const path = require('path');
+const moment = require('moment');
+
+const ROOT = "../radio.log";
 
 let trace = 1;
 	// 3: error
@@ -6,12 +10,13 @@ let trace = 1;
 	// 1: info
 
 function date() {
-	let d = new Date();
-	let f = function(v, n) { v = "000" + v; return v.substr(v.length - n); };
-	let s = f(d.getHours(), 2) + ":" + f(d.getMinutes(), 2)
-			+ ":" +  f(d.getSeconds(), 2) + "." + f(d.getMilliseconds(), 3);
-	d = f(d.getFullYear(), 4) + "/" + f(d.getMonth()+1, 2) + "/" + f(d.getDate(), 2);
-	d = d + " " + s;
+	//let d = new Date();
+	//let f = function(v, n) { v = "000" + v; return v.substr(v.length - n); };
+	//let s = f(d.getHours(), 2) + ":" + f(d.getMinutes(), 2)
+	//		+ ":" +  f(d.getSeconds(), 2) + "." + f(d.getMilliseconds(), 3);
+	//d = f(d.getFullYear(), 4) + "/" + f(d.getMonth()+1, 2) + "/" + f(d.getDate(), 2);
+	//d = d + " " + s;
+	let d = moment().format("YYYY/MM/DD HH:mm:ss.SSS")
 	return d;
 }
 function yyyymmdd() {
@@ -22,7 +27,7 @@ function yyyymmdd() {
 }
 function file(id, ext) {
 	if(id == "") id = "_";
-	id = "../radio.log/" + id + "." + ext;
+	id = ROOT + "/" + id + "." + ext;
 	return id;
 }
 function load(id, ext) {
@@ -72,6 +77,36 @@ const log = {
 			load: function(req, res) {
 				let id = decodeURIComponent(req.body);
 				let body = encodeURIComponent(load(id, "txt"));
+				res.send(body);
+			},
+			log: function(req, res) {
+				let id = decodeURIComponent(req.body);
+				let body = encodeURIComponent(load(id, "log"));
+				res.send(body);
+			},
+			dir: function(req, res) {
+				let ls = fs.readdirSync(ROOT);
+				let body = "";
+				ls.forEach(file => {
+					if (path.extname(file) == ".txt") {
+						let d = fs.statSync(ROOT + "/" + file);
+						let r = fs.readFileSync(ROOT + "/" + file);
+						d = moment(d.mtime).format("YYYY/MM/DD HH:mm:ss.SSS");
+						r = "" + r;
+						if(r != "") {
+							r = r.split("\n");
+							if(r[r.length - 1] == "")
+								r = r[r.length - 2];
+							else r = r[r.length - 1];
+							let p = r.indexOf("\t");
+							r = r.substr(p+1);
+							p = r.indexOf("\t");
+							r = r.substr(p+1);
+						}
+						body += path.basename(file) + "\t" + d + "\t" + r + "\n";
+					}
+				});
+				body = encodeURIComponent(body);
 				res.send(body);
 			}
 		};

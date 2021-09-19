@@ -20,6 +20,8 @@
   "homepage": "https://github.com/marron9999/radio#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "path": "^0.12.7",
     "ws": "^8.2.2"
   }
 }
