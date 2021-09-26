@@ -1,7 +1,7 @@
 const fs = require('fs');
 const maze = require('./maze/maze-big.js');
 
-let i = maze.plugin(0);
+let i = maze.plugin(-1);
 
 console.log("maze-big: Start generate");
 i.gen(1000 * 2 + 1, 1000 * 2 + 1, null,
