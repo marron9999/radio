@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 //const log = require('../log.js').log;
 //log.id("maze");
 
@@ -69,7 +71,7 @@ function maze() {
 			this.check4(i, 0);
 			this.check4(i, this.ym-1);
 		}
-		this.stp(this.map);
+		this.stp(this);
 		this.scan();
 	},
 	check4: function(x, y) {
@@ -200,12 +202,12 @@ function maze() {
 		while(this.xyc > 0) {
 			this.scan_step();
 		}
-		this.stp(this.map);
+		this.stp(this);
 		this.goal();
 		let m = parseInt( this.xm * this.ym / 4 / 10);
 		this.door(m);
 		this.xy = null;
-		this.fin(this.map);
+		this.fin(this);
 	},
 	scan_step: function () {
 		let i = this.nxi;
@@ -247,7 +249,7 @@ function maze() {
 		this.stpc--;
 		if(this.stpc <= 0) {
 			this.stpc = this.stpm;
-			this.stp(this.map);
+			this.stp(this);
 		}
 	},
 	test: function (xc, yc, zc) {
@@ -564,12 +566,24 @@ function maze() {
 }
 
 let maze_i = maze();
-setTimeout(function() {
-console.log("maze-big: Start generate");
-maze_i.gen(1000 * 2 + 1, 1000 * 2 + 1);
-console.log("maze-big: Generated!!! ");
-}, 1);
 
-const plugin = function(g) { return maze_i; };
+const plugin = function(g) { 
+	if(g < 0) {
+		return maze_i;
+	}
+	if(maze_i.map1.length == 0) {
+		try {
+			let json = fs.readFileSync("./maze/maze-big.json");
+			json = JSON.parse(json);
+			for(let name in json) {
+				maze_i[name] = json[name];
+			}
+			json = null;
+		} catch (err) {
+			console.log(err);
+		}
+	}
+	return maze_i;
+};
 
 module.exports = { plugin };
