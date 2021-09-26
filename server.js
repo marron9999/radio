@@ -19,7 +19,8 @@ let plugin_band  = {
 	"82": require('./highlow/highlow.js'),
 	"81": require('./othello/othello.js'),
 	"80": require('./startrek/startrek.js'),
-	"79": require('./parrot/parrot.js')
+	"79": require('./parrot/parrot.js'),
+	"9999": require('./maze/maze-big.js'),
 };
 let plugin_group  = { };
 
@@ -188,7 +189,9 @@ function handle(ws, msg) {
 			return;
 		}
 		if(msg.indexOf("group") == 0) {
-			online[ws.id].group = parseInt(msg.substr(5).trim());
+			let g = parseInt(msg.substr(5).trim());
+			if(online[ws.id].band > 83) g = 0;
+			online[ws.id].group = g;
 			plugin_close(band, group);
 			group = online[ws.id].group;
 			users(band, group);
