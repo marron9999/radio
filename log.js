@@ -67,10 +67,12 @@ const log = {
 	posts: function() {
 		return {
 			post : function(req, res) {
+				log.info("", "post - start");
 				var body = '';
 				req.on('data', function(chunk) {body += chunk})
 				.on('end', function() {
 					body = decodeURIComponent(body);
+					log.info("", "post:" + body);
 					let p = body.indexOf("\t");
 					let id = body.substr(0, p);
 					body = body.substr(p + 1);
@@ -78,6 +80,7 @@ const log = {
 					body = encodeURIComponent(load(id, "txt"));
 					res.send(body);
 					if(config.post != undefined) {
+						log.info("", "slack:" + body);
 						slack(config.post.slack,
 							date + " /" + path + " " + body.substr(0, p) + "\n"
 							+ body.substr(p+1)
@@ -87,16 +90,19 @@ const log = {
 			},
 			load: function(req, res) {
 				let id = decodeURIComponent(req.body);
+				log.info("", "load:" + id);
 				let body = encodeURIComponent(load(id, "txt"));
 				res.send(body);
 			},
 			log: function(req, res) {
 				let id = decodeURIComponent(req.body);
+				log.info("", "log:" + id);
 				let body = encodeURIComponent(load(id, "log"));
 				res.send(body);
 			},
 			dir: function(req, res) {
 				let ls = fs.readdirSync(ROOT);
+				log.info("", "dir:" + ROOT);
 				let body = "";
 				ls.forEach(file => {
 					if (path.extname(file) == ".txt") {
