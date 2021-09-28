@@ -69,8 +69,15 @@ const log = {
 			post : function(req, res) {
 				log.info("", "post - start");
 				var body = '';
-				req.on('data', function(chunk) {body += chunk});
+				req.on('error', function(error) {
+					log.info("", "post - error:" + error);
+				});
+				req.on('data', function(chunk) {
+					log.info("", "post - data");
+					body += chunk;
+				});
 				req.on('end', function() {
+					log.info("", "post - end");
 					body = decodeURIComponent(body);
 					log.info("", "post:" + body);
 					let p = body.indexOf("\t");
