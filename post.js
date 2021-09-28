@@ -78,11 +78,12 @@ function post_(body, res) {
 	let id = body.substr(0, p);
 	body = body.substr(p + 1);
 	log.store(id, "txt", body);
-	body = encodeURIComponent(log.load(id, "txt"));
-	res.send(body);
+	let body2 = encodeURIComponent(log.load(id, "txt"));
+	res.send(body2);
 	let config = require('./config.js').load();
 	if(config.post != undefined) {
 		log.info("", "slack:" + body);
+		p = body.indexOf("\t");
 		slack(config.post.slack,
 			date + " /" + path + " " + body.substr(0, p) + "\n"
 			+ body.substr(p+1)
@@ -97,11 +98,11 @@ function slack(uri, text) {
 		json: {text: text}
 	}, function(error, res, body) {
 		if(error != null) {
-			//console.log('slack:' + error.message);
+			log.error("", "slack:" + error.message);
 		}
+		log.info("", 'slack.status:' + res.statusCode);
+		log.info("", 'slack.headers:' + JSON.stringify(res.headers));
 	});
-	//console.log('status:' + res.statusCode);
-	//console.log('headers:' + JSON.stringify(res.headers));
 }
 
 module.exports = { post };
