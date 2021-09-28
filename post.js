@@ -1,10 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 const moment = require('moment');
-const {exec} = require('child_process')
 const request = require('request');
 
 const log = require('./log.js').log;
+
+function date() {
+	let d = moment().format("YYYY/MM/DD HH:mm:ss.SSS")
+	return d;
+}
 
 const post = {
 	posts: function() {
@@ -85,7 +89,7 @@ function post_(body, res) {
 		log.info("", "slack:" + body);
 		p = body.indexOf("\t");
 		slack(config.post.slack,
-			date + " /" + path + " " + body.substr(0, p) + "\n"
+			date + " /" + id + " " + body.substr(0, p) + "\n"
 			+ body.substr(p+1)
 		);
 	}
