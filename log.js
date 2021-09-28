@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const moment = require('moment');
+const {exec} = require('child_process')
 
 const ROOT = "../radio.log";
 
@@ -66,13 +67,23 @@ const log = {
 	posts: function() {
 		return {
 			post : function(req, res) {
-				let body = decodeURIComponent(req.body);
-				let p = body.indexOf("\t");
-				let id = body.substr(0, p);
-				body = body.substr(p + 1);
-				store(id, "txt", body);
-				body = encodeURIComponent(load(id, "txt"));
-				res.send(body);
+				var body = '';
+				req.on('data', function(chunk) {body += chunk})
+				.on('end', function() {
+					body = decodeURIComponent(body);
+					let p = body.indexOf("\t");
+					let id = body.substr(0, p);
+					body = body.substr(p + 1);
+					store(id, "txt", body);
+					body = encodeURIComponent(load(id, "txt"));
+					res.send(body);
+					if(config.post != undefined) {
+						slack(config.post.slack,
+							date + " /" + path + " " + body.substr(0, p) + "\n"
+							+ body.substr(p+1)
+						);
+					}
+				});
 			},
 			load: function(req, res) {
 				let id = decodeURIComponent(req.body);

@@ -7,6 +7,18 @@ const bodyParser = require('body-parser');
 const log = require('./log.js').log;
 //log.set(2);
 
+const cmd = require('./cmd.js').cmd;
+
+let config = {};
+if(process.argv.length > 2){
+	if(process.argv[2] != "stop") {
+	//console.log("config:" + JSON.stringify(
+	config = require('./config.js').load(process.argv[2])
+	//))
+	;
+	}
+}
+
 let port = 8888;
 let app = null;
 let server = null;
@@ -56,6 +68,11 @@ function start() {
 
 	server = http.createServer(app);
 	let posts = log.posts();
+	for(let name in posts) {
+		app.post("/" + name, posts[name]);
+		app.post("/app/" + name, posts[name]);
+	}
+	posts = cmd.posts();
 	for(let name in posts) {
 		app.post("/" + name, posts[name]);
 		app.post("/app/" + name, posts[name]);
@@ -424,11 +441,11 @@ function wsid(socket, req) {
 	return a;
 }
 
-if(process.argv.length >= 3) {
-	port = parseInt(process.argv[2]);
+if(config.port != undefined) {
+	port = config.port;
 }
-if(process.argv.length >= 4) {
-	if(process.argv[3] == "stop") {
+if(process.argv.length >= 3) {
+	if(process.argv[2] == "stop") {
 		stop();
 	} else {
 		start();

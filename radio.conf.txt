@@ -1,0 +1,6 @@
+{
+  "port": 8888,	
+  "post": {
+    "slack" : "https://hooks.slack.com/services/ {strings} "
+  }
+}
