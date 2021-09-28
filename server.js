@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const log = require('./log.js').log;
 //log.set(2);
 
+const post = require('./post.js').post;
 const cmd = require('./cmd.js').cmd;
 
 let config = {};
@@ -67,7 +68,7 @@ function start() {
 	app.use(express.static('html'));
 
 	server = http.createServer(app);
-	let posts = log.posts();
+	let posts = post.posts();
 	for(let name in posts) {
 		app.post("/" + name, posts[name]);
 		app.post("/app/" + name, posts[name]);
