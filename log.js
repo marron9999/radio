@@ -67,9 +67,13 @@ const log = {
 	posts: function() {
 		return {
 			post : function(req, res) {
-				log.info("", "post - req: " + JSON.stringify(req));
+				//log.info("", "post - req: " + JSON.stringify(req));
 				log.info("", "post - start");
-				var body = '';
+				if(req.connection != "close") {
+					this.post_(req.body, res);
+					return;
+				}
+				var body = "";
 				req.on('error', function(error) {
 					log.info("", "post - error:" + error);
 				});
@@ -79,22 +83,25 @@ const log = {
 				});
 				req.on('end', function() {
 					log.info("", "post - end");
-					body = decodeURIComponent(body);
-					log.info("", "post:" + body);
-					let p = body.indexOf("\t");
-					let id = body.substr(0, p);
-					body = body.substr(p + 1);
-					store(id, "txt", body);
-					body = encodeURIComponent(load(id, "txt"));
-					res.send(body);
-					if(config.post != undefined) {
-						log.info("", "slack:" + body);
-						slack(config.post.slack,
-							date + " /" + path + " " + body.substr(0, p) + "\n"
-							+ body.substr(p+1)
-						);
-					}
+					this.post_(body, res);
 				});
+			},
+			post_: function(body, res) {
+				body = decodeURIComponent(body);
+				log.info("", "post:" + body);
+				let p = body.indexOf("\t");
+				let id = body.substr(0, p);
+				body = body.substr(p + 1);
+				store(id, "txt", body);
+				body = encodeURIComponent(load(id, "txt"));
+				res.send(body);
+				if(config.post != undefined) {
+					log.info("", "slack:" + body);
+					slack(config.post.slack,
+						date + " /" + path + " " + body.substr(0, p) + "\n"
+						+ body.substr(p+1)
+					);
+				}
 			},
 			load: function(req, res) {
 				let id = decodeURIComponent(req.body);
