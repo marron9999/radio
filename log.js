@@ -69,8 +69,8 @@ const log = {
 			post : function(req, res) {
 				log.info("", "post - start");
 				var body = '';
-				req.on('data', function(chunk) {body += chunk})
-				.on('end', function() {
+				req.on('data', function(chunk) {body += chunk});
+				req.on('end', function() {
 					body = decodeURIComponent(body);
 					log.info("", "post:" + body);
 					let p = body.indexOf("\t");
