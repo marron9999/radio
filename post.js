@@ -89,7 +89,7 @@ function post_(body, res) {
 		log.info("", "slack:" + body);
 		p = body.indexOf("\t");
 		slack(config.post.slack,
-			date + " /" + id + " " + body.substr(0, p) + "\n"
+			date() + " /" + id + " " + body.substr(0, p) + "\n"
 			+ body.substr(p+1)
 		);
 	}
@@ -104,8 +104,8 @@ function slack(uri, text) {
 		if(error != null) {
 			log.error("", "slack:" + error.message);
 		}
-		log.info("", 'slack.status:' + res.statusCode);
-		log.info("", 'slack.headers:' + JSON.stringify(res.headers));
+		//log.info("", 'slack.status:' + res.statusCode);
+		//log.info("", 'slack.headers:' + JSON.stringify(res.headers));
 	});
 }
 
