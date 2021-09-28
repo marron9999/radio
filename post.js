@@ -10,9 +10,9 @@ const post = {
 	posts: function() {
 		return {
 			post : function(req, res) {
-				//log.info("", "post - req: " + JSON.stringify(req));
+				//log.info("", "post - req: " + JSON.stringify(req.headers));
 				//log.info("", "post - start");
-				if(req.connection == "close") {
+				if(req.headers.connection == "close") {
 					post_(req.body, res);
 					return;
 				}
@@ -80,6 +80,7 @@ function post_(body, res) {
 	log.store(id, "txt", body);
 	body = encodeURIComponent(log.load(id, "txt"));
 	res.send(body);
+	let config = require('./config.js').load();
 	if(config.post != undefined) {
 		log.info("", "slack:" + body);
 		slack(config.post.slack,
