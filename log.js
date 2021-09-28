@@ -67,6 +67,7 @@ const log = {
 	posts: function() {
 		return {
 			post : function(req, res) {
+				log.info("", "post - req: " + JSON.stringify(req));
 				log.info("", "post - start");
 				var body = '';
 				req.on('error', function(error) {
