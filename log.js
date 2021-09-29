@@ -2,8 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const moment = require('moment');
 
-const ROOT = "../radio.log";
-
 function date() {
 	//let d = new Date();
 	//let f = function(v, n) { v = "000" + v; return v.substr(v.length - n); };
@@ -24,7 +22,7 @@ function yyyymmdd() {
 
 function file(id, ext) {
 	if(id == "") id = "_";
-	id = ROOT + "/" + id + "." + ext;
+	id = log.ROOT + "/" + id + "." + ext;
 	return id;
 }
 
@@ -51,6 +49,7 @@ function save(id, ext, body) {
 }
 
 const log = {
+	ROOT: "../radio.log",
 	trace: 1,
 		// 3: error
 		// 2: warn
@@ -59,7 +58,7 @@ const log = {
 	info: function(id, text) { if(log.trace <= 1) console_log(id, text); },
 	warn: function(id, text) { if(log.trace <= 2) console_log(id, text); },
 	error: function(id, text) { if(log.trace <= 3) console_log(id, text); },
-	connect: function(text) { store(yyyymmdd(), "log", text); },
+	connect: function(text) { save(yyyymmdd(), "log", text); },
 	load: function (id, ext) {
 		try { id = fs.readFileSync(file(id, ext)); }
 		catch (err) { id = ""; }

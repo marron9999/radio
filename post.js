@@ -35,24 +35,24 @@ const post = {
 			},
 			load: function(req, res) {
 				let id = decodeURIComponent(req.body);
-				log.info("", "load:" + id);
+				//log.info("", "load:" + id);
 				let body = encodeURIComponent(log.load(id, "txt"));
 				res.send(body);
 			},
 			log: function(req, res) {
 				let id = decodeURIComponent(req.body);
-				log.info("", "log:" + id);
+				//log.info("", "log:" + id);
 				let body = encodeURIComponent(log.load(id, "log"));
 				res.send(body);
 			},
 			dir: function(req, res) {
-				let ls = fs.readdirSync(ROOT);
-				log.info("", "dir:" + ROOT);
+				let ls = fs.readdirSync(log.ROOT);
+				//log.info("", "dir:" + log.ROOT);
 				let body = "";
 				ls.forEach(file => {
 					if (path.extname(file) == ".txt") {
-						let d = fs.statSync(ROOT + "/" + file);
-						let r = fs.readFileSync(ROOT + "/" + file);
+						let d = fs.statSync(log.ROOT + "/" + file);
+						let r = fs.readFileSync(log.ROOT + "/" + file);
 						d = moment(d.mtime).format("YYYY/MM/DD HH:mm:ss.SSS");
 						r = "" + r;
 						if(r != "") {

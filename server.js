@@ -33,7 +33,7 @@ let plugin_band  = {
 	"81": require('./othello/othello.js'),
 	"80": require('./startrek/startrek.js'),
 	"79": require('./parrot/parrot.js'),
-	"9999": require('./maze/maze-big.js'),
+	"9999": require('./maze/maze1000.js'),
 };
 let plugin_group  = { };
 
@@ -68,6 +68,7 @@ function start() {
 	app.use(express.static('html'));
 
 	server = http.createServer(app);
+
 	let posts = post.posts();
 	for(let name in posts) {
 		app.post("/" + name, posts[name]);

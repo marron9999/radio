@@ -37,6 +37,8 @@ function maze() {
 		this.map2 = [];
 		this.xyi = -1;
 		this.xyc = 0;
+		this.xyc_a = 0;
+		this.xyc_d = 0;
 		this.nxi = -1;
 		this.nxc = 0;
 		this.tstc = 0;
@@ -69,7 +71,9 @@ function maze() {
 			this.check4(i, 0);
 			this.check4(i, this.ym-1);
 		}
-		this.stp(this.map);
+		this.stp(this);
+		this.xyc_a =0;
+		this.xyc_d =0;
 		this.scan();
 	},
 	check4: function(x, y) {
@@ -106,6 +110,7 @@ function maze() {
 		if(this.map1[ye][xe] == 0) {
 			if(this.xyi >= 0) {
 				this.xyc++;
+				this.xyc_a++;
 				this.xy[this.xyi] = [xs, ys, xe, ye];
 				this.nxi = this.xyi;
 				let i = this.xyi;
@@ -117,6 +122,7 @@ function maze() {
 				}
 			} else {
 				this.xyc++;
+				this.xyc_a++;
 				this.nxi = this.xy.length;
 				this.xy[this.xy.length] = [xs, ys, xe, ye];
 			}
@@ -200,12 +206,14 @@ function maze() {
 		while(this.xyc > 0) {
 			this.scan_step();
 		}
-		this.stp(this.map);
+		this.stp(this);
+		this.xyc_a =0;
+		this.xyc_d =0;
 		this.goal();
 		let m = parseInt( this.xm * this.ym / 4 / 10);
 		this.door(m);
 		this.xy = null;
-		this.fin(this.map);
+		this.fin(this);
 	},
 	scan_step: function () {
 		let i = this.nxi;
@@ -223,6 +231,7 @@ function maze() {
 		let xe = this.xy[i][2];
 		let ye = this.xy[i][3];
 		this.xyc--;
+		this.xyc_d++;
 		this.xy[i] = null;
 		if(this.xyi < 0) this.xyi = i;
 		this.nxi = -1;
@@ -248,6 +257,8 @@ function maze() {
 		if(this.stpc <= 0) {
 			this.stpc = this.stpm;
 			this.stp(this.map);
+			this.xyc_a =0;
+			this.xyc_d =0;
 		}
 	},
 	test: function (xc, yc, zc) {
@@ -487,8 +498,22 @@ function maze() {
 			if(this.map1[y][x] == 2) {
 				this.map1[y][x] = 0;
 				this.map2[y][x] = 0;
+				//this.send2(wsx, "S:T " + x + " " + y + " 0 0");
+				let ctx = this.test(x, y, -1);
+				for(let i=0; i<ctx.length; i++) {
+					this.send2(wsx, "S:" + "T " + ctx[i]);
+				}
 			}
-			this.send2(wsx, "S:T " + x + " " + y + " 0 0");
+			return true;
+		}
+		if(val[0] == "c") {
+			let x = parseInt(val[1]);
+			let y = parseInt(val[2]);
+			if(this.map1[y][x] == 0) {
+				this.map1[y][x] = 1;
+				this.map2[y][x] = 1;
+				this.send2(wsx, "S:T " + x + " " + y + " 0 1");
+			}
 			return true;
 		}
 		if(val[0] == "v") {
